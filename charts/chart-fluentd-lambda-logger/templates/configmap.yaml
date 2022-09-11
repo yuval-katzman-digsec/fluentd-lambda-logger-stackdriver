@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ required "configmap.name" .Values.configMap.name }}
+  labels:
+    {{ include "lambda-logger.labels" . | nindent 4 }}
+data:
+  fluentd.conf: |-
+{{ .Files.Get "fluentd-config.conf" | indent 4 }}
